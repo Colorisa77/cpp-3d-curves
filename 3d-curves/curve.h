@@ -5,6 +5,7 @@
 namespace curve {
     class Curve {
     public:
+        virtual ~Curve() = default;
         virtual Point3D GetPoint(double t) const = 0;
         virtual Vector3D GetDerivative(double t) const = 0;
         virtual CurveType GetCurveType() const = 0;
