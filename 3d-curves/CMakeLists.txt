@@ -10,4 +10,6 @@ add_executable(cpp_3d_curves main.cpp
         circle.cpp
         circle.h
         ellipse.cpp
-        ellipse.h)
+        ellipse.h
+        helix.cpp
+        helix.h)
