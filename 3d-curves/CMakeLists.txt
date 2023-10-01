@@ -6,4 +6,6 @@ set(CMAKE_CXX_FLAGS "-Wall -Wextra -Werror -O2")
 
 add_executable(cpp_3d_curves main.cpp
         curve.h
-        common.h)
+        common.h
+        circle.cpp
+        circle.h)
