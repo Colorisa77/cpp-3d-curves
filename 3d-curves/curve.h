@@ -7,6 +7,7 @@ namespace curve {
     public:
         virtual Point3D GetPoint(double t) const = 0;
         virtual Vector3D GetDerivative(double t) const = 0;
+        virtual CurveType GetCurveType() const = 0;
 
     protected:
         virtual double GetX(double t) const = 0;

@@ -5,10 +5,11 @@
 namespace circle {
     class Circle : public curve::Curve {
     public:
-        explicit Circle(double radius);
+        explicit Circle(curve::CurveType type, double radius);
 
         curve::Point3D GetPoint(double t) const override;
         curve::Vector3D GetDerivative(double t) const override;
+        curve::CurveType GetCurveType() const override;
 
         double GetRadius() const;
 
@@ -22,6 +23,7 @@ namespace circle {
         double GetDerivativeZ(double t) const override;
 
     private:
+        curve::CurveType type_;
         double radius_;
     };
 } // namespace circle

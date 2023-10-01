@@ -6,10 +6,11 @@ namespace ellipse {
 
     class Ellipse : public curve::Curve {
     public:
-        explicit Ellipse(double axis_x, double axis_y);
+        explicit Ellipse(curve::CurveType type, double axis_x, double axis_y);
 
         curve::Point3D GetPoint(double t) const override;
         curve::Vector3D GetDerivative(double t) const override;
+        curve::CurveType GetCurveType() const override;
 
         double GetAxisX() const;
         double GetAxisY() const;
@@ -24,6 +25,7 @@ namespace ellipse {
         double GetDerivativeZ(double t) const override;
 
     private:
+        curve::CurveType type_;
         double axis_x_;
         double axis_y_;
     };

@@ -3,9 +3,10 @@
 #include <cmath>
 
 namespace ellipse {
-    Ellipse::Ellipse(double axis_x, double axis_y)
-    : axis_x_(axis_x)
-    , axis_y_(axis_y){
+    Ellipse::Ellipse(curve::CurveType type, double axis_x, double axis_y)
+    : type_(type)
+    , axis_x_(axis_x)
+    , axis_y_(axis_y) {
     }
 
     curve::Point3D Ellipse::GetPoint(double t) const {
@@ -14,6 +15,10 @@ namespace ellipse {
 
     curve::Vector3D Ellipse::GetDerivative(double t) const {
         return {GetDerivativeX(t), GetDerivativeY(t), GetDerivativeZ(t)};
+    }
+
+    curve::CurveType Ellipse::GetCurveType() const {
+        return type_;
     }
 
     double Ellipse::GetAxisX() const {

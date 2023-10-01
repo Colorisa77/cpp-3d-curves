@@ -5,7 +5,7 @@
 namespace helix {
     class Helix : public circle::Circle {
     public:
-        explicit Helix(double radius, double step);
+        explicit Helix(curve::CurveType type, double radius, double step);
 
         double GetStep() const;
 
