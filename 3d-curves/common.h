@@ -1,6 +1,6 @@
 
 namespace curve {
-    enum class CurveType { Circle, Ellipse, Helix };
+    enum class CurveType { CIRCLE, ELLIPSE, HELIX };
 
     struct Point3D {
         Point3D(double x, double y, double z) : x(x), y(y), z(z) {}
