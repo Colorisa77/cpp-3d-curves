@@ -33,7 +33,7 @@ namespace circle {
     }
 
     double Circle::GetDerivativeX(double t) const {
-        return radius_ * -std::sin(t);
+        return radius_ * (-std::sin(t));
     }
 
     double Circle::GetDerivativeY(double t) const {
