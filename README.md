@@ -10,7 +10,6 @@ This repository contains two programs: one that performs various tasks related t
 - [Usage](#usage)
 - [Building](#building)
 
-
 ## Description
 
 `3D Curves` is a versatile C++ program designed to handle a variety of tasks related to 3D geometry. It provides classes and functions for working with 3D curves, including circles, ellipses, and helixes. Additionally, the repository includes a separate program, `3d-curves-with-dynamic-lib`, which demonstrates how to utilize the `3d-curves` dynamic library for specific computational tasks on Linux.
