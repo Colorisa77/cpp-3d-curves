@@ -6,6 +6,9 @@ namespace circle {
     Circle::Circle(curve::CurveType type, double radius)
     : type_(type)
     , radius_(radius) {
+        if(radius <= 0.0) {
+            throw std::invalid_argument("parameters must be greater than 0");
+        }
     }
 
     curve::Point3D Circle::GetPoint(double t) const {

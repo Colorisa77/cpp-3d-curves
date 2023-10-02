@@ -7,6 +7,9 @@ namespace ellipse {
     : type_(type)
     , axis_x_(axis_x)
     , axis_y_(axis_y) {
+        if(axis_x <= 0.0 || axis_y <= 0.0) {
+            throw std::invalid_argument("parameters must be greater than 0");
+        }
     }
 
     curve::Point3D Ellipse::GetPoint(double t) const {
