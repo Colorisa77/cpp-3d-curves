@@ -1,6 +1,5 @@
 #include <iostream>
 
-#include "curve.h"
 #include "circle.h"
 #include "ellipse.h"
 #include "helix.h"
