@@ -10,13 +10,13 @@
 #include <algorithm>
 #include <execution>
 
-std::deque<std::unique_ptr<curve::Curve>> PopulatingContainerWithRandomObjects() {
+std::deque<std::shared_ptr<curve::Curve>> PopulatingContainerWithRandomObjects() {
     std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_int_distribution<> distr(1, 3);
     std::uniform_real_distribution<> distr_param(1.0, 5000.0);
 
-    std::deque<std::unique_ptr<curve::Curve>> container;
+    std::deque<std::shared_ptr<curve::Curve>> container;
     for (int i = 0; i < 50; ++i) {
         int type = distr(gen);
 
@@ -41,7 +41,7 @@ std::deque<std::unique_ptr<curve::Curve>> PopulatingContainerWithRandomObjects()
     return container;
 }
 
-void PrintingPointsAndDerivatives(const std::deque<std::unique_ptr<curve::Curve>>& container) {
+void PrintingPointsAndDerivatives(const std::deque<std::shared_ptr<curve::Curve>>& container) {
     for(const auto& curve : container) {
         auto point =  curve->GetPoint(M_PI_4);
         auto derivative = curve->GetDerivative(M_PI_4);
@@ -49,26 +49,27 @@ void PrintingPointsAndDerivatives(const std::deque<std::unique_ptr<curve::Curve>
     }
 }
 
-std::deque<circle::Circle*> PopulatingContainerWithCirclesFromOtherContainer(const std::deque<std::unique_ptr<curve::Curve>>& container) {
-    std::deque<circle::Circle*> circles;
+std::deque<std::shared_ptr<circle::Circle>> PopulatingContainerWithCirclesFromOtherContainer(const std::deque<std::shared_ptr<curve::Curve>>& container) {
+    std::deque<std::shared_ptr<circle::Circle>> circles;
     for(const auto& curve : container) {
         if(curve->GetCurveType() == curve::CurveType::CIRCLE) {
-            circles.push_back(dynamic_cast<circle::Circle*>(curve.get()));
+            auto circle_ptr = std::dynamic_pointer_cast<circle::Circle>(curve);
+            circles.emplace_back(circle_ptr);
         }
     }
     return circles;
 }
 
-void SortByRadius(std::deque<circle::Circle*>& container) {
-    std::sort(container.begin(), container.end(), [](circle::Circle* lhs, circle::Circle* rhs) {
+void SortByRadius(std::deque<std::shared_ptr<circle::Circle>>& container) {
+    std::sort(container.begin(), container.end(), [](const auto& lhs, const auto& rhs) {
         return lhs->GetRadius() < rhs->GetRadius();
     });
 }
 
-double ComputeTheTotalSumOfRadii(const std::deque<circle::Circle*>& container) {
+double ComputeTheTotalSumOfRadii(const std::deque<std::shared_ptr<circle::Circle>>& container) {
 
     double total_sum = 0.0;
-    std::for_each(std::execution::par, container.begin(), container.end(), [&total_sum](circle::Circle* circle) {
+    std::for_each(std::execution::par, container.begin(), container.end(), [&total_sum](const auto& circle) {
         return total_sum += circle->GetRadius();
     });
 
