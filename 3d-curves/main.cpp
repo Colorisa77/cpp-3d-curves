@@ -20,18 +20,22 @@ std::deque<std::unique_ptr<curve::Curve>> PopulatingContainerWithRandomObjects()
     for (int i = 0; i < 50; ++i) {
         int type = distr(gen);
 
-        switch(type) {
-            case 1:
-                container.emplace_back(std::make_unique<circle::Circle>(circle::Circle(curve::CurveType::CIRCLE, distr_param(gen))));
-                break;
-            case 2:
-                container.emplace_back(std::make_unique<ellipse::Ellipse>(ellipse::Ellipse(curve::CurveType::ELLIPSE, distr_param(gen), distr_param(gen))));
-                break;
-            case 3:
-                container.emplace_back(std::make_unique<helix::Helix>(helix::Helix(curve::CurveType::HELIX, distr_param(gen), distr_param(gen))));
-                break;
-            default:
-                break;
+        try {
+            switch(type) {
+                case 1:
+                    container.emplace_back(std::make_unique<circle::Circle>(circle::Circle(curve::CurveType::CIRCLE, distr_param(gen))));
+                    break;
+                case 2:
+                    container.emplace_back(std::make_unique<ellipse::Ellipse>(ellipse::Ellipse(curve::CurveType::ELLIPSE, distr_param(gen), distr_param(gen))));
+                    break;
+                case 3:
+                    container.emplace_back(std::make_unique<helix::Helix>(helix::Helix(curve::CurveType::HELIX, distr_param(gen), distr_param(gen))));
+                    break;
+                default:
+                    break;
+            }
+        } catch(std::invalid_argument& err) {
+            std::cerr << "Cannot create object of type " << type << ": " << err.what() << std::endl;
         }
     }
     return container;
@@ -49,7 +53,7 @@ std::deque<circle::Circle*> PopulatingContainerWithCirclesFromOtherContainer(con
     std::deque<circle::Circle*> circles;
     for(const auto& curve : container) {
         if(curve->GetCurveType() == curve::CurveType::CIRCLE) {
-            circles.push_back(static_cast<circle::Circle*>(curve.get()));
+            circles.push_back(dynamic_cast<circle::Circle*>(curve.get()));
         }
     }
     return circles;
